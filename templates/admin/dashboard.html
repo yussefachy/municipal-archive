@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Admin Dashboard</h2>
+            <a href="{{ url_for('add_document') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Document
+            </a>
+        </div>
+    </div>
+
+    <!-- Documents Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Documents</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Upload Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for document in documents %}
+                        <tr>
+                            <td>{{ document.id }}</td>
+                            <td>{{ document.title }}</td>
+                            <td>{{ document.description[:100] }}...</td>
+                            <td>{{ document.upload_date.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                <a href="{{ url_for('edit_document', document_id=document.id) }}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <form action="{{ url_for('delete_document', document_id=document.id) }}" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this document?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Users</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% if user.is_admin %}
+                                <span class="badge bg-success">Yes</span>
+                                {% else %}
+                                <span class="badge bg-secondary">No</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservations Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Reservations</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Document</th>
+                            <th>Appointment Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservation in reservations %}
+                        <tr>
+                            <td>{{ reservation.id }}</td>
+                            <td>{{ reservation.user.username }}</td>
+                            <td>{{ reservation.document.title }}</td>
+                            <td>{{ reservation.appointment_date.strftime('%Y-%m-%d') }} {{ reservation.appointment_time }}</td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if reservation.status == 'confirmed' else 'warning' }}">
+                                    {{ reservation.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

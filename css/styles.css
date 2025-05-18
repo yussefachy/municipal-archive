@@ -1,0 +1,78 @@
+/* Custom styles for Municipal Archive System */
+
+/* General styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Header styles */
+.navbar-brand img {
+    height: 40px;
+}
+
+/* Search bar styles */
+.search-container {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+/* Document card styles */
+.document-card {
+    transition: transform 0.2s;
+    height: 100%;
+}
+
+.document-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.document-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Form styles */
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* QR code container */
+.qr-container {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+/* Footer styles */
+footer {
+    margin-top: auto;
+    padding: 1rem 0;
+    background-color: #f8f9fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .document-card img {
+        height: 150px;
+    }
+    
+    .form-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+} 
